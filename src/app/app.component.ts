@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component } from '@angular/core';
 import * as tmi from 'tmi.js';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent {
             reconnect: true,
             secure: true
         },
-        channels: [ 'penta' ]
+        channels: [ 'billsellers5' ]
     });
 
     messages: string[] = [];

@@ -1,16 +1,16 @@
 .frame {
-    height: 90%;
+    height: 98%;
     position: absolute;
-    width: 90%;
+    width: 98%;
     z-index: 100;
     top: 0;
-    margin-top: 10px;
+    margin-top: 3px;
+    margin-left: 2px;
     background-color: gray;
-    overflow: scroll;
   }
   
   .item {
-    padding: 120px 50px;
-    margin: 20px;
+    margin: 5px;
+    height: auto;
     background-color: white;
   }
