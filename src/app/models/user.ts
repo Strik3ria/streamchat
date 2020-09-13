@@ -6,6 +6,6 @@ export class User {
 
     constructor(userName: string) {
         this.userName = userName;
-        this.color = userColors[Math.floor(Math.random() * 5) + 1];
+        this.color = userColors[Math.floor(Math.random() * 6)];
     }
 }
