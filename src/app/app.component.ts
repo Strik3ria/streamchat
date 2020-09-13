@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import * as tmi from 'tmi.js';
 
+import { Message } from './models/message';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,7 +19,7 @@ export class AppComponent {
         channels: [ 'billsellers5' ]
     });
 
-    messages: string[] = [];
+    messages: Message[] = [];
 
     constructor() {}
 
@@ -25,8 +27,12 @@ export class AppComponent {
         await this.client.connect();
 
         this.client.on('message', (channel, tags, message, self) => {
-            this.messages.push(`${tags['display-name']}: ${message}`);
+            let newMessage = new Message(tags['display-name'], message);
+            this.messages.push(newMessage);
+
+            setInterval(() => {
+                newMessage.isNew = false;
+            }, 15000);
         });
     }
-
 }

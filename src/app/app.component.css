@@ -1,16 +1,39 @@
 .frame {
-    height: 98%;
+    height: auto;
     position: absolute;
-    width: 98%;
+    width: 100%;
     z-index: 100;
     top: 0;
-    margin-top: 3px;
-    margin-left: 2px;
-    background-color: gray;
-  }
-  
-  .item {
+    background-color: dodgerblue;
+}
+
+.item {
     margin: 5px;
     height: auto;
     background-color: white;
-  }
+    font-size: 40px;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
+.green {
+    color: green;
+}
+
+.orange {
+    color: orange;
+}
+
+.brown {
+    color: brown;
+}
+
+.purple {
+    color: purple;
+}
