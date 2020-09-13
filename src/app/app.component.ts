@@ -31,9 +31,9 @@ export class AppComponent {
         this.client.on('message', (channel, tags, message, self) => {
             let color = '';
             if (!this.users.filter(x => x.userName === tags['display-name'])[0]) {
-                this.users.push(new User(tags['display-name']));
-
-                color = this.users[this.users.length - 1].color;
+                let newUser = new User(tags['display-name']);
+                this.users.push(newUser);
+                color = newUser.color;
             } else {
                 color = this.users.filter(x => x.userName === tags['display-name'])[0].color
             }
