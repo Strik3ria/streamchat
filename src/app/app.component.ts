@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as tmi from 'tmi.js';
 
 import { Message } from './models/message';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent {
     });
 
     messages: Message[] = [];
+    users: User[] = [];
 
     constructor() {}
 
@@ -27,7 +29,16 @@ export class AppComponent {
         await this.client.connect();
 
         this.client.on('message', (channel, tags, message, self) => {
-            let newMessage = new Message(tags['display-name'], message);
+            let color = '';
+            if (!this.users.filter(x => x.userName === tags['display-name'])[0]) {
+                this.users.push(new User(tags['display-name']));
+
+                color = this.users[this.users.length - 1].color;
+            } else {
+                color = this.users.filter(x => x.userName === tags['display-name'])[0].color
+            }
+
+            let newMessage = new Message(tags['display-name'], message, color);
             this.messages.push(newMessage);
 
             setInterval(() => {
