@@ -1,11 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
-import { NgxAutoScroll } from 'ngx-auto-scroll';
+import { Component } from '@angular/core';
 import * as tmi from 'tmi.js';
 
 import { Message } from './models/message';
-import { User } from './models/user';
-
 
 @Component({
   selector: 'app-root',
@@ -13,13 +9,6 @@ import { User } from './models/user';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    // options = {
-    //     params: new HttpParams()
-    //         .set('client-d', 'bdblh48f4ivnpta5x210cq5myxtiyp')
-    //         .set('Authorization', 'Bearer zo4e361dor3dw8qixofl8yvnzvg1hl'),
-    //     responseType: 'application/json'
-    // }
-    // @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
     title = 'streamchat';
     
     client = tmi.Client({
@@ -31,7 +20,6 @@ export class AppComponent {
     });
 
     messages: Message[] = [];
-    users: User[] = [];
 
     constructor() {}
 
@@ -64,9 +52,5 @@ export class AppComponent {
                 clearInterval(blinking);
             }, 15000);
         });
-
-        // setInterval(() => {
-
-        // }, 5000);
     }
 }
