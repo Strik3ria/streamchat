@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgxAutoScroll } from 'ngx-auto-scroll';
 import * as tmi from 'tmi.js';
 
 import { Message } from './models/message';
@@ -18,6 +19,7 @@ export class AppComponent {
     //         .set('Authorization', 'Bearer zo4e361dor3dw8qixofl8yvnzvg1hl'),
     //     responseType: 'application/json'
     // }
+    // @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
     title = 'streamchat';
     
     client = tmi.Client({
@@ -31,7 +33,7 @@ export class AppComponent {
     messages: Message[] = [];
     users: User[] = [];
 
-    constructor(private http: HttpClient) {}
+    constructor() {}
 
     async ngOnInit(): Promise<void> {
         await this.client.connect();
@@ -47,6 +49,8 @@ export class AppComponent {
             let blinking = setInterval(() => {
                 this.messages[number - 1].isNew = !this.messages[number - 1].isNew;
             }, 1000);
+
+            window.scrollTo(window.innerWidth + 200, window.innerHeight + 200);
 
             setTimeout(() => {
                 clearInterval(blinking);

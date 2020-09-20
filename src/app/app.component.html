@@ -1,4 +1,4 @@
-<div class="frame">
+<div class="frame" ngx-auto-scroll>
     <div *ngFor="let message of messages" class="item">
         <div [ngStyle]="{'color': message.color}">
             <p [ngStyle]="{'background-color': message.isNew ? 'yellow' : 'white'}">{{message.userName}}: {{message.content}}</p>

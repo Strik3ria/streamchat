@@ -5,6 +5,7 @@
     z-index: 100;
     top: 0;
     background-color: dodgerblue;
+    overflow-y: scroll;
 }
 
 .item {
