@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import * as tmi from 'tmi.js';
 
 import { Message } from './models/message';
 import { User } from './models/user';
+
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,12 @@ import { User } from './models/user';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    // options = {
+    //     params: new HttpParams()
+    //         .set('client-d', 'bdblh48f4ivnpta5x210cq5myxtiyp')
+    //         .set('Authorization', 'Bearer zo4e361dor3dw8qixofl8yvnzvg1hl'),
+    //     responseType: 'application/json'
+    // }
     title = 'streamchat';
     
     client = tmi.Client({
@@ -23,27 +31,30 @@ export class AppComponent {
     messages: Message[] = [];
     users: User[] = [];
 
-    constructor() {}
+    constructor(private http: HttpClient) {}
 
     async ngOnInit(): Promise<void> {
         await this.client.connect();
 
         this.client.on('message', (channel, tags, message, self) => {
-            let color = '';
-            if (!this.users.filter(x => x.userName === tags['display-name'])[0]) {
-                let newUser = new User(tags['display-name']);
-                this.users.push(newUser);
-                color = newUser.color;
-            } else {
-                color = this.users.filter(x => x.userName === tags['display-name'])[0].color
-            }
+            let color = tags['color'];
+            let userName = tags['display-name'];
+            console.log(tags);
 
-            let newMessage = new Message(tags['display-name'], message, color);
-            this.messages.push(newMessage);
+            let newMessage = new Message(userName, message, color);
+            let number = this.messages.push(newMessage);
 
-            setInterval(() => {
-                newMessage.isNew = false;
+            let blinking = setInterval(() => {
+                this.messages[number - 1].isNew = !this.messages[number - 1].isNew;
+            }, 1000);
+
+            setTimeout(() => {
+                clearInterval(blinking);
             }, 15000);
         });
+
+        // setInterval(() => {
+
+        // }, 5000);
     }
 }

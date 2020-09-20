@@ -1,11 +1,8 @@
-const userColors = ['red', 'blue', 'green', 'brown', 'black', 'purple','orange'];
-
 export class User {
     userName: string;
     color: string;
 
-    constructor(userName: string) {
+    constructor(userName: string, color: string) {
         this.userName = userName;
-        this.color = userColors[Math.floor(Math.random() * 6)];
     }
 }

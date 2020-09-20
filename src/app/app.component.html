@@ -1,5 +1,7 @@
 <div class="frame">
     <div *ngFor="let message of messages" class="item">
-        <p [ngStyle]="{'background-color': message.isNew ? 'yellow' : 'white'}" [class]="message.color">{{message.userName}}: {{message.content}}</p>
+        <div [ngStyle]="{'color': message.color}">
+            <p [ngStyle]="{'background-color': message.isNew ? 'yellow' : 'white'}">{{message.userName}}: {{message.content}}</p>
+        </div>
     </div>
 </div>
