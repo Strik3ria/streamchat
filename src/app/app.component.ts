@@ -39,9 +39,17 @@ export class AppComponent {
         await this.client.connect();
 
         this.client.on('message', (channel, tags, message, self) => {
+            // 14
+            let colorList = ['purple', 'red', 'blue', 'green', 'orange', 'brown', 'cyan', 'salmon', 'royalblue', 'olive', 'springgreen', 'slategrey', 'black', 'aqua'];
             let color = tags['color'];
+
+            if (color === null) {
+                color = colorList[Math.floor(Math.random() * Math.floor(13))];
+                // console.log(color);
+            }
+
             let userName = tags['display-name'];
-            console.log(tags);
+            // console.log(tags);
 
             let newMessage = new Message(userName, message, color);
             let number = this.messages.push(newMessage);
