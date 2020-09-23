@@ -1,44 +1,64 @@
-.frame {
-    height: auto;
-    position: absolute;
-    width: 100%;
-    z-index: 100;
-    top: 0;
-    background-color: dodgerblue;
-    overflow-y: scroll;
-}
-
 .item {
     margin: 5px;
-    height: auto;
     background-color: white;
     font-size: 50px;
 }
 
-.red {
-    color: red;
+/* CSS talk bubble */
+.talk-bubble {
+    position: relative;
+    width: auto;
+    height: auto;
+    background-color: powderblue;
 }
 
-.blue {
-    color: blue;
+.border{
+    border: 8px solid #666;
 }
 
-.green {
-    color: green;
+.round{
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
 }
 
-.orange {
-    color: orange;
+/*Right triangle, placed bottom left side slightly in*/
+.tri-right.border.btm-left-in:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 30px;
+    right: auto;
+    top: auto;
+    bottom: -40px;
+    border: 20px solid;
+    border-color: #666 transparent transparent #666;
 }
 
-.brown {
-    color: brown;
+.tri-right.btm-left-in:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 38px;
+    right: auto;
+    top: auto;
+    bottom: -20px;
+    border: 12px solid;
+    border-color: powderblue transparent transparent powderblue;
 }
 
-.purple {
-    color: purple;
+/* talk bubble contents */
+.talktext{
+    padding: .5em;
+    text-align: left;
+    line-height: 1.5em;
+    width: auto;
 }
 
-.black {
-    color: black;
+.talktext p{
+    /* remove webkit p margins */
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
 }
