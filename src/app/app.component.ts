@@ -41,12 +41,13 @@ export class AppComponent {
 
             let newMessage = new Message(userName, message, color);
             let number = this.messages.push(newMessage);
-
+            if (this.messages.length > 7) {
+                this.messages.shift();
+            }
+            
             let blinking = setInterval(() => {
                 this.messages[number - 1].isNew = !this.messages[number - 1].isNew;
             }, 1000);
-
-            window.scrollTo(window.innerWidth + 200, window.innerHeight + 200);
 
             setTimeout(() => {
                 clearInterval(blinking);

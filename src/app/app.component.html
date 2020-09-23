@@ -1,7 +1,8 @@
-<div class="frame" ngx-auto-scroll>
-    <div *ngFor="let message of messages" class="item">
-        <div [ngStyle]="{'color': message.color}">
-            <p [ngStyle]="{'background-color': message.isNew ? 'yellow' : 'white'}">{{message.userName}}: {{message.content}}</p>
-        </div>
+<div *ngFor="let message of messages" class="talk-bubble tri-right border round btm-left-in item">
+    <div [ngStyle]="{'color': message.color}" class="talktext">
+        <p [ngStyle]="{'background-color': message.isNew ? 'yellow' : 'white'}">
+            {{message.userName}}: {{message.content}}
+        </p>
     </div>
 </div>
+<div id="bottom"></div>
