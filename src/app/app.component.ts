@@ -41,7 +41,7 @@ export class AppComponent {
 
             let newMessage = new Message(userName, message, color);
             let number = this.messages.push(newMessage);
-            if (this.messages.length > 7) {
+            if (this.messages.length > 4) {
                 this.messages.shift();
             }
             
