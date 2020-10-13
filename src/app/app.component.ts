@@ -16,7 +16,7 @@ export class AppComponent {
             reconnect: true,
             secure: true
         },
-        channels: [ 'billsellers5' ]
+        channels: [ 'summit1g' ]
     });
 
     messages: Message[] = [];
@@ -35,15 +35,14 @@ export class AppComponent {
                 color = colorList[Math.floor(Math.random() * Math.floor(13))];
                 // console.log(color);
             }
-
             let userName = tags['display-name'];
             // console.log(tags);
 
             let newMessage = new Message(userName, message, color);
             let number = this.messages.push(newMessage);
-            if (this.messages.length > 4) {
-                this.messages.shift();
-            }
+
+            const element = document.querySelector('#bottom');
+            element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'})
             
             let blinking = setInterval(() => {
                 this.messages[number - 1].isNew = !this.messages[number - 1].isNew;
@@ -52,6 +51,19 @@ export class AppComponent {
             setTimeout(() => {
                 clearInterval(blinking);
             }, 15000);
+        });
+
+        this.client.on('subscription', (channel, username, method, message, userstate) => {
+            let colorList = ['purple', 'red', 'blue', 'green', 'orange', 'brown', 'cyan', 'salmon', 'royalblue', 'olive', 'springgreen', 'slategrey', 'black', 'aqua'];
+            let color = userstate['color'];
+
+            if (color === null) {
+                color = colorList[Math.floor(Math.random() * Math.floor(13))];
+                // console.log(color);
+            }
+
+            let newMessage = new Message('SUBSCRIPTION', userstate['system-msg'], color);
+            this.messages.push(newMessage);
         });
     }
 }
