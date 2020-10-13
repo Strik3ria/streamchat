@@ -16,7 +16,7 @@ export class AppComponent {
             reconnect: true,
             secure: true
         },
-        channels: [ 'summit1g' ]
+        channels: [ 'billsellers5' ]
     });
 
     messages: Message[] = [];
