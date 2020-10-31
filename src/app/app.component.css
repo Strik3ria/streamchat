@@ -9,7 +9,7 @@
     position: relative;
     width: auto;
     height: auto;
-    background-color: powderblue;
+    background-color: #18181b;
 }
 
 .border{
@@ -46,7 +46,7 @@
     top: auto;
     bottom: -20px;
     border: 12px solid;
-    border-color: powderblue transparent transparent powderblue;
+    border-color: #18181b transparent transparent #18181b;
 }
 
 /* talk bubble contents */

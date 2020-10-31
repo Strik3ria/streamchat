@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

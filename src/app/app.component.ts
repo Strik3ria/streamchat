@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import * as tmi from 'tmi.js';
 
 import { Message } from './models/message';
+import { MessageService } from './services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -10,60 +10,23 @@ import { Message } from './models/message';
 })
 export class AppComponent {
     title = 'streamchat';
-    
-    client = tmi.Client({
-        connection: {
-            reconnect: true,
-            secure: true
-        },
-        channels: [ 'billsellers5' ]
-    });
-
     messages: Message[] = [];
 
-    constructor() {}
+    constructor(private messageService: MessageService) {}
 
-    async ngOnInit(): Promise<void> {
-        await this.client.connect();
+    ngOnInit() {
+        this.messageService.newMessages();
+        this.messageService.newSubscriber();
+        this.messageService.resubscriber();
+        this.messageService.subGift();
+        this.messageService.subMysterGift();
+        this.messageService.giftUpgrade();
+        this.messageService.hosted();
 
-        this.client.on('message', (channel, tags, message, self) => {
-            // 14
-            let colorList = ['purple', 'red', 'blue', 'green', 'orange', 'brown', 'cyan', 'salmon', 'royalblue', 'olive', 'springgreen', 'slategrey', 'black', 'aqua'];
-            let color = tags['color'];
-
-            if (color === null) {
-                color = colorList[Math.floor(Math.random() * Math.floor(13))];
-                // console.log(color);
+        this.messageService.newMessage.subscribe(
+            (messages: Message[]) => {
+                this.messages = messages;
             }
-            let userName = tags['display-name'];
-            // console.log(tags);
-
-            let newMessage = new Message(userName, message, color);
-            let number = this.messages.push(newMessage);
-
-            const element = document.querySelector('#bottom');
-            element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'})
-            
-            let blinking = setInterval(() => {
-                this.messages[number - 1].isNew = !this.messages[number - 1].isNew;
-            }, 1000);
-
-            setTimeout(() => {
-                clearInterval(blinking);
-            }, 15000);
-        });
-
-        this.client.on('subscription', (channel, username, method, message, userstate) => {
-            let colorList = ['purple', 'red', 'blue', 'green', 'orange', 'brown', 'cyan', 'salmon', 'royalblue', 'olive', 'springgreen', 'slategrey', 'black', 'aqua'];
-            let color = userstate['color'];
-
-            if (color === null) {
-                color = colorList[Math.floor(Math.random() * Math.floor(13))];
-                // console.log(color);
-            }
-
-            let newMessage = new Message('SUBSCRIPTION', userstate['system-msg'], color);
-            this.messages.push(newMessage);
-        });
+        )
     }
 }
