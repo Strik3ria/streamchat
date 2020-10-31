@@ -12,7 +12,7 @@ export class MessageService {
                 reconnect: true,
                 secure: true
             },
-            channels: [ 'asmongold' ]
+            channels: [ 'billsellers5' ]
         });
 
         this.setup();
