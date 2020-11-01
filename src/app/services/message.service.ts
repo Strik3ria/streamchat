@@ -5,29 +5,38 @@ import * as tmi from 'tmi.js';
 @Injectable()
 export class MessageService {
     client: tmi.Client;
+    bottomElement: Element;
 
     constructor() {
+        this.setup();
+    };
+    
+    messages: Message[] = [];
+    newMessage = new EventEmitter<Message[]>();
+    newMessageAudio = new Audio('../assets/audio/button-50.mp3');
+
+    async setup() {
         this.client = tmi.Client({
             connection: {
                 reconnect: true,
                 secure: true
             },
-            channels: [ 'billsellers5' ]
+            channels: [ 'kyle' ]
         });
+        
+        await this.client.connect();
 
-        this.setup();
-    }
-    
-    messages: Message[] = [];
-    newMessage = new EventEmitter<Message[]>();
+        this.newMessages();
+        this.newSubscriber();
+        this.resubscriber();
+        this.subGift();
+        this.multiRandomGift();
+        this.giftUpgrade();
+        this.hosted();
 
-    getMessages(): Message[] {
-        return this.messages.slice();
-    }
-
-    async setup() {
-        await this.client.connect()
-    }
+        this.bottomElement = document.querySelector('#bottom');
+        this.newMessageAudio.load();
+    };
 
     newMessages = () => {
         this.client.on('message', (channel, tags, message, self) => {
@@ -39,10 +48,10 @@ export class MessageService {
 
             this.scrollToBottomElement();
             
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
     newSubscriber = () => {
         this.client.on('subscription', (channel, username, method, message, userstate) => {
@@ -53,10 +62,10 @@ export class MessageService {
 
             this.scrollToBottomElement();
 
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
     resubscriber = () => {
         this.client.on('resub', (channel, username, months, message, userstate, methods) => {
@@ -67,10 +76,10 @@ export class MessageService {
 
             this.scrollToBottomElement();
 
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
     subGift = () => {
         this.client.on('subgift', (channel, username, months, recipient, methods, userstate) => {
@@ -81,12 +90,12 @@ export class MessageService {
 
             this.scrollToBottomElement();
 
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
-    subMysterGift = () => {
+    multiRandomGift = () => {
         this.client.on('submysterygift', (channel, username, numOfSubs, methods, userstate) => {
             let color = this.getColor(userstate);
 
@@ -95,10 +104,10 @@ export class MessageService {
 
             this.scrollToBottomElement();
 
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
     giftUpgrade = () => {
         this.client.on('giftpaidupgrade', (channel, username, sender, userstate) => {
@@ -109,10 +118,10 @@ export class MessageService {
 
             this.scrollToBottomElement();
 
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
     hosted = () => {
         this.client.on('hosted', (channel, username, viewers, autohost) => {
@@ -124,19 +133,20 @@ export class MessageService {
 
             this.scrollToBottomElement();
 
-            let blinking = this.getNewInterval(number);
-            this.timeoutAtFifteen(blinking);
+            let blinking = this.getBlinkInterval(number);
+            this.timeoutBlinkAtFifteen(blinking);
         });
-    }
+    };
 
     addMessage = (message: Message) => {
         let number = this.messages.push(message);
         this.newMessage.emit(this.messages.slice());
+        this.playNewMessageSound();
         
         return number;
-    }
+    };
 
-    getColor = (state) => {
+    getColor = (state: any) => {
         let colorList = ['purple', 'red', 'blue', 'green', 'orange', 'brown', 'cyan', 'salmon', 'royalblue', 'olive', 'springgreen', 'slategrey', 'black', 'aqua'];
         let color = state['color'];
 
@@ -145,20 +155,23 @@ export class MessageService {
         }
 
         return color;
-    }
+    };
 
-    getNewInterval = (number: number) => setInterval(() => {
+    playNewMessageSound = () => {
+        this.newMessageAudio.play();
+    };
+
+    getBlinkInterval = (number: number) => setInterval(() => {
         this.messages[number - 1].isNew = !this.messages[number - 1].isNew;
     }, 1000);
 
-    timeoutAtFifteen = (interval: any) => {
+    timeoutBlinkAtFifteen = (interval: any) => {
         setTimeout(() => {
             clearInterval(interval);
         }, 15000);
     };
 
     scrollToBottomElement = () => {
-        const element = document.querySelector('#bottom');
-        element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
-    }
+        this.bottomElement.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+    };
 }

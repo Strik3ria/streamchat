@@ -15,18 +15,6 @@ export class AppComponent {
     constructor(private messageService: MessageService) {}
 
     ngOnInit() {
-        this.messageService.newMessages();
-        this.messageService.newSubscriber();
-        this.messageService.resubscriber();
-        this.messageService.subGift();
-        this.messageService.subMysterGift();
-        this.messageService.giftUpgrade();
-        this.messageService.hosted();
-
-        this.messageService.newMessage.subscribe(
-            (messages: Message[]) => {
-                this.messages = messages;
-            }
-        )
+        this.messageService.newMessage.subscribe((messages: Message[]) => this.messages = messages)
     }
 }
