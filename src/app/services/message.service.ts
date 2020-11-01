@@ -13,7 +13,7 @@ export class MessageService {
     
     messages: Message[] = [];
     newMessage = new EventEmitter<Message[]>();
-    newMessageAudio = new Audio('../assets/audio/button-50.mp3');
+    newMessageAudio = new Audio('../assets/audio/Ding-sound-effect.mp3');
 
     async setup() {
         this.client = tmi.Client({
