@@ -44,12 +44,7 @@ export class MessageService {
             let userName = tags['display-name'];
 
             let newMessage = new Message(userName, message, color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-            
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -58,12 +53,7 @@ export class MessageService {
             let color = this.getColor(userstate);
 
             let newMessage = new Message('SUBSCRIPTION', userstate['system-msg'], color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -72,12 +62,7 @@ export class MessageService {
             let color = this.getColor(userstate);
 
             let newMessage = new Message('RE-SUBSCRIBER', userstate['system-msg'], color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -86,12 +71,7 @@ export class MessageService {
             let color = this.getColor(userstate);
 
             let newMessage = new Message('GIFT SUB', userstate['system-msg'], color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -100,12 +80,7 @@ export class MessageService {
             let color = this.getColor(userstate);
 
             let newMessage = new Message('MULTI GIFT SUB', userstate['system-msg'], color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -114,12 +89,7 @@ export class MessageService {
             let color = this.getColor(userstate);
 
             let newMessage = new Message('GIFT SUB UPGRADE', userstate['system-msg'], color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -129,12 +99,7 @@ export class MessageService {
             let message = `${username} has hosted you with ${viewers} of their friends!`;
 
             let newMessage = new Message('HOSTED', message, color);
-            let number = this.addMessage(newMessage);
-
-            this.scrollToBottomElement();
-
-            let blinking = this.getBlinkInterval(number);
-            this.timeoutBlinkAtFifteen(blinking);
+            this.addMessage(newMessage);
         });
     };
 
@@ -142,6 +107,10 @@ export class MessageService {
         let number = this.messages.push(message);
         this.newMessage.emit(this.messages.slice());
         this.playNewMessageSound();
+        this.scrollToBottomElement();
+            
+        let blinking = this.getBlinkInterval(number);
+        this.timeoutBlinkAtFifteen(blinking);
         
         return number;
     };
