@@ -21,7 +21,7 @@ export class MessageService {
                 reconnect: true,
                 secure: true
             },
-            channels: [ 'kyle' ]
+            channels: [ 'billsellers5' ]
         });
         
         await this.client.connect();
