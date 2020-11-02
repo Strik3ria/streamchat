@@ -6,14 +6,13 @@ import * as tmi from 'tmi.js';
 export class MessageService {
     client: tmi.Client;
     bottomElement: Element;
+    messages: Message[] = [];
+    newMessage = new EventEmitter<Message[]>();
+    newMessageAudio = new Audio('../assets/audio/Ding-sound-effect.mp3');
 
     constructor() {
         this.setup();
     };
-    
-    messages: Message[] = [];
-    newMessage = new EventEmitter<Message[]>();
-    newMessageAudio = new Audio('../assets/audio/Ding-sound-effect.mp3');
 
     async setup() {
         this.client = tmi.Client({
