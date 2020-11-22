@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Message } from '../models/message';
 import * as tmi from 'tmi.js';
+import { Message } from '../models/message';
 
 @Injectable()
 export class MessageService {
@@ -22,7 +22,7 @@ export class MessageService {
             },
             channels: [ 'billsellers5' ]
         });
-        
+
         await this.client.connect();
 
         this.newMessages();
@@ -107,10 +107,10 @@ export class MessageService {
         this.newMessage.emit(this.messages.slice());
         this.playNewMessageSound();
         this.scrollToBottomElement();
-            
+
         let blinking = this.getBlinkInterval(number);
         this.timeoutBlinkAtFifteen(blinking);
-        
+
         return number;
     };
 
