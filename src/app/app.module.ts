@@ -4,16 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MessageService } from './services/message.service';
+import { MessageListComponent } from './message-list/message-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-  ],
+  declarations: [AppComponent, MessageListComponent],
+  imports: [BrowserModule, HttpClientModule],
   providers: [MessageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
