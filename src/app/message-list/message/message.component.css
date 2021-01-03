@@ -1,0 +1,13 @@
+/* talk bubble contents */
+.talktext {
+  padding: 0.5em;
+  text-align: left;
+  line-height: 1em;
+  width: auto;
+}
+
+.talktext p {
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
