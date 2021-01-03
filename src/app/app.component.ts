@@ -1,19 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Message } from './models/message';
-import { MessageService } from './services/message.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'streamchat';
-  messages: Message[] = [];
 
-  constructor(private messageService: MessageService) {}
-
-  ngOnInit(): void {
-    this.messageService.newMessage.subscribe((messages: Message[]) => (this.messages = messages));
-  }
+  constructor() {}
 }
