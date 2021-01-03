@@ -2,9 +2,10 @@
   *ngFor="let message of messages"
   class="talk-bubble tri-right border round btm-left-in item bottom"
 >
-  <div [ngStyle]="{ color: message.color }" class="talktext">
+  <!-- <div [ngStyle]="{ color: message.color }" class="talktext">
     <p [ngStyle]="{ 'background-color': message.isNew ? 'yellow' : '#26262c' }">
       {{ message.userName }}: {{ message.content }}
     </p>
-  </div>
+  </div> -->
+  <app-message [message]="message"></app-message>
 </div>
