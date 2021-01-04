@@ -1,0 +1,48 @@
+.navbar {
+  height: 1.3rem;
+  padding-bottom: 2.3rem;
+  border-bottom: 1px solid black;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  float: left;
+}
+
+.nav-item {
+  text-align: center;
+  display: inline-block;
+  padding: 0.4rem 30px;
+  text-decoration: none;
+}
+
+.nav-brand {
+  list-style-type: none;
+  font-size: 1.5rem;
+}
+
+.login-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+form {
+  display: inline-block;
+  margin-top: 1.3rem;
+}
+
+input {
+  width: 7rem;
+  margin-right: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: darkgray;
+}
+
+label {
+  color: darkgray;
+}
