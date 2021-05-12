@@ -95,7 +95,8 @@ export class MessageService {
   private hosted = () => {
     this.client.on('hosted', (channel, username, viewers, autohost) => {
       const color = this.getColor(null);
-      const message = `${username} has hosted you with ${viewers} of their friends!`;
+      const message = `${username} has hosted you with ${viewers} of their
+			friends!`;
 
       const newMessage = new Message('HOSTED', message, color);
       this.addMessage(newMessage);
@@ -105,7 +106,7 @@ export class MessageService {
   private addMessage = (message: Message) => {
     const messageIndex = this.messages.push(message);
     this.newMessage.emit(this.messages.slice());
-    this.playNewMessageSound();
+    //this.playNewMessageSound();
     this.scrollToBottomElement();
 
     const blinking = this.getBlinkInterval(messageIndex);
