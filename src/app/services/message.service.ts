@@ -106,7 +106,7 @@ export class MessageService {
   private addMessage = (message: Message) => {
     const messageIndex = this.messages.push(message);
     this.newMessage.emit(this.messages.slice());
-    // this.playNewMessageSound();
+    this.playNewMessageSound();
     this.scrollToBottomElement();
 
     const blinking = this.getBlinkInterval(messageIndex);
